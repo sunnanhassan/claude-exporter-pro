@@ -1,0 +1,65 @@
+{
+   "manifest_version": 3,
+   "name": "Claude Exporter Pro - Save PDF, MD & Artifacts",
+   "version": "1.0.0",
+   "description": "Save Claude AI conversations to your computer as documents, spreadsheets, or text files. Supports artifacts and extended thinking.",
+   "permissions": [
+      "storage",
+      "activeTab",
+      "downloads"
+   ],
+   "host_permissions": [
+      "https://claude.ai/*"
+   ],
+   "icons": {
+      "16": "assets/icon16.png",
+      "32": "assets/icon32.png",
+      "48": "assets/icon48.png",
+      "128": "assets/icon128.png"
+   },
+   "action": {
+      "default_popup": "popup.html",
+      "default_title": "Claude Exporter Pro - Settings",
+      "default_icon": {
+         "16": "assets/icon16.png",
+         "32": "assets/icon32.png",
+         "48": "assets/icon48.png",
+         "128": "assets/icon128.png"
+      }
+   },
+   "background": {
+      "service_worker": "background.js"
+   },
+   "content_scripts": [
+      {
+         "matches": [
+            "https://claude.ai/*"
+         ],
+         "js": [
+            "inject.js"
+         ],
+         "run_at": "document_start",
+         "world": "MAIN"
+      },
+      {
+         "matches": [
+            "https://claude.ai/*"
+         ],
+         "js": [
+            "sidebar.js",
+            "content.js"
+         ],
+         "run_at": "document_idle"
+      }
+   ],
+   "web_accessible_resources": [
+      {
+         "resources": [
+            "inject.js"
+         ],
+         "matches": [
+            "https://claude.ai/*"
+         ]
+      }
+   ]
+}

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Exporter Pro - Settings</title>
+    <style>
+        :root {
+            --brand: #da7756;
+            --brand-hover: #e08363;
+            --bg: #0f0f0f;
+            --card-bg: #171717;
+            --text-primary: #f2f2f2;
+            --text-muted: #8a8a8a;
+            --border: #262626;
+            --hover: #232323;
+            --switch-active: #da7756;
+        }
+
+        body {
+            width: 440px;
+            margin: 0;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            color: var(--text-primary);
+            background: var(--bg);
+            -webkit-font-smoothing: antialiased;
+            box-sizing: border-box;
+        }
+
+        * { box-sizing: border-box; }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 18px;
+            border-bottom: 1px solid var(--border);
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(8px);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        .header h2 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+            letter-spacing: -0.01em;
+        }
+        .header-actions {
+            display: flex;
+            gap: 8px;
+        }
+        .btn-header {
+            background: transparent;
+            border: 1px solid var(--border);
+            padding: 5px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-primary);
+            transition: all 0.15s ease;
+        }
+        .btn-header:hover {
+            background: var(--hover);
+            border-color: #404040;
+        }
+        .btn-header.primary {
+            border-color: var(--brand);
+            color: var(--brand);
+        }
+        .btn-header.primary:hover {
+            background: rgba(218, 119, 86, 0.1);
+        }
+
+        /* Content Sections */
+        .content {
+            padding: 16px 18px;
+        }
+        .section-tagline {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin: 16px 0 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .section-tagline:first-child {
+            margin-top: 0;
+        }
+
+        /* Card Block */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 14px 16px;
+            margin-bottom: 14px;
+        }
+
+        /* Rows */
+        .row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 7px 0;
+        }
+        .row-label {
+            font-size: 13px;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-primary);
+        }
+
+        .badge-new {
+            background: #e11d48;
+            color: #fff;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 1px 6px;
+            border-radius: 10px;
+            text-transform: lowercase;
+        }
+
+        /* Inputs & Selects */
+        input[type="text"], select {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            color: #fff;
+            outline: none;
+            transition: border-color 0.15s ease;
+        }
+        input[type="text"]:focus, select:focus {
+            border-color: var(--brand);
+        }
+
+        /* Toggle Switches */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 38px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: var(--border);
+            transition: .2s;
+            border-radius: 20px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            transition: .2s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: var(--switch-active);
+        }
+        input:checked + .slider:before {
+            transform: translateX(18px);
+        }
+
+        input[type="checkbox"].custom-chk {
+            width: 16px;
+            height: 16px;
+            accent-color: var(--brand);
+            cursor: pointer;
+        }
+
+        .tooltip {
+            cursor: help;
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+
+        .nested-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 6px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+        .nested-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        a.link {
+            color: #60a5fa;
+            text-decoration: none;
+            font-size: 12px;
+        }
+        a.link:hover { text-decoration: underline; }
+
+        .bulk-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 8px;
+        }
+        .btn-bulk {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            padding: 8px 12px;
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.15s ease;
+        }
+        .btn-bulk:hover {
+            background: var(--hover);
+        }
+
+        #toast {
+            position: fixed;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--brand);
+            color: #fff;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            display: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div style="display: flex; align-items: center; gap: 8px;">
+            <img src="assets/icon32.png" width="22" height="22" style="border-radius: 4px; object-fit: contain;">
+            <h2>Export Settings</h2>
+        </div>
+        <div class="header-actions">
+            <button class="btn-header primary" id="btn-export-now">Export</button>
+            <button class="btn-header" id="btn-feedback">Feedback</button>
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Common Settings -->
+        <div class="section-tagline">ⓘ Common settings.</div>
+        <div class="card">
+            <div class="row">
+                <div class="row-label">Show / Hide Export Buttons</div>
+                <label class="switch"><input type="checkbox" id="showExportButtons" checked><span class="slider"></span></label>
+            </div>
+            <div class="row">
+                <div class="row-label">Auto Close Selector</div>
+                <input type="checkbox" class="custom-chk" id="autoCloseSelector">
+            </div>
+            <div class="row">
+                <div class="row-label">
+                    Filename Format <span class="tooltip" title="Format pattern for saved files">ⓘ</span> <span class="badge-new">new</span>
+                </div>
+                <select id="filenameFormat" style="width: 170px;">
+                    <option value="{Custom Part}-{Conversation Title}">{Custom Part}-{Conversa...</option>
+                    <option value="{Conversation Title}">{Conversation Title}</option>
+                    <option value="{Timestamp}-{Conversation Title}">{Timestamp}-{Conversat...</option>
+                    <option value="{Custom Part}-{Timestamp}-{Conversation Title}">{Custom}-{Timestamp}-{Title}</option>
+                </select>
+            </div>
+            <div class="row">
+                <div class="row-label">Custom Part</div>
+                <input type="text" id="customFilenamePart" value="Claude" style="width: 170px;">
+            </div>
+            <div class="row">
+                <div class="row-label">Download Location <span class="tooltip" title="Set standard Chrome download location">ⓘ</span></div>
+                <a href="#" class="link" id="link-open-downloads">Open Settings</a>
+            </div>
+            <div class="row">
+                <div class="row-label">Conversation Link</div>
+                <input type="checkbox" class="custom-chk" id="conversationLink" checked>
+            </div>
+            <div class="row">
+                <div class="row-label">Artifacts Content</div>
+                <input type="checkbox" class="custom-chk" id="artifactsContent" checked>
+            </div>
+            <div class="row">
+                <div class="row-label">Message Timestamps</div>
+                <input type="checkbox" class="custom-chk" id="messageTimestamps" checked>
+            </div>
+            <div class="row">
+                <div class="row-label">Thought Process</div>
+                <input type="checkbox" class="custom-chk" id="thoughtProcess" checked>
+            </div>
+            <div class="row">
+                <div class="row-label">Tool Steps</div>
+                <input type="checkbox" class="custom-chk" id="toolSteps" checked>
+            </div>
+            <div class="row">
+                <div class="row-label">Web Search Sources</div>
+                <input type="checkbox" class="custom-chk" id="webSearch" checked>
+            </div>
+        </div>
+
+        <!-- Non-PDF Export Settings -->
+        <div class="section-tagline">ⓘ Settings for non-PDF export types.</div>
+        <div class="card">
+            <div class="row">
+                <div class="row-label">Content Title</div>
+                <input type="checkbox" class="custom-chk" id="contentTitle" checked>
+            </div>
+            <div class="row" style="flex-direction: column; align-items: flex-start; gap: 4px;">
+                <div class="row-label">User Info</div>
+                <div class="nested-row">
+                    <div class="nested-item">
+                        <input type="checkbox" class="custom-chk" id="useName">
+                        <span>Name</span>
+                        <input type="text" id="userName" placeholder="User Name" style="width: 85px;">
+                    </div>
+                    <div class="nested-item">
+                        <input type="checkbox" class="custom-chk" id="useEmail">
+                        <span>Email</span>
+                        <input type="text" id="userEmail" placeholder="user@mail.com" style="width: 95px;">
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 6px;">
+                <div class="row-label">Date & Time</div>
+                <div style="display: flex; gap: 4px;">
+                    <select id="dateTimeRange" style="width: 65px;">
+                        <option value="All">All</option>
+                        <option value="Today">Today</option>
+                    </select>
+                    <select id="dateTimeFormat" style="width: 110px;">
+                        <option value="MM/DD/YYYY">Month/Day/Yr</option>
+                        <option value="DD/MM/YYYY">Day/Month/Yr</option>
+                    </select>
+                    <select id="dateTime24h" style="width: 60px;">
+                        <option value="24h">24h</option>
+                        <option value="12h">12h</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="row-label">Copy to Clipboard <span class="tooltip" title="Directly copy to system clipboard">ⓘ</span></div>
+                <input type="checkbox" class="custom-chk" id="copyToClipboard">
+            </div>
+            <div class="row">
+                <div class="row-label">Embed images (Markdown only) <span class="tooltip" title="Embed base64 inline images into markdown output">ⓘ</span></div>
+                <input type="checkbox" class="custom-chk" id="embedImagesMd">
+            </div>
+        </div>
+
+        <!-- PDF Export Settings -->
+        <div class="section-tagline">ⓘ PDF Export Options.</div>
+        <div class="card">
+            <div class="row">
+                <div class="row-label">PDF Language</div>
+                <select id="pdfLanguage" style="width: 110px;">
+                    <option value="en">English</option>
+                    <option value="es">Spanish</option>
+                    <option value="zh">Chinese</option>
+                </select>
+            </div>
+            <div class="row">
+                <div class="row-label">Page Break Per Prompt</div>
+                <input type="checkbox" class="custom-chk" id="pageBreakPerPrompt">
+            </div>
+            <div class="row">
+                <div class="row-label">Remove Icons</div>
+                <input type="checkbox" class="custom-chk" id="removeIcons">
+            </div>
+            <div class="row">
+                <div class="row-label">Remove Branding</div>
+                <input type="checkbox" class="custom-chk" id="removeBranding">
+            </div>
+        </div>
+
+        <!-- Bulk LLM Context Transfer -->
+        <div class="section-tagline">ⓘ Bulk Transfer & Backup.</div>
+        <div class="card">
+            <div class="bulk-grid">
+                <button class="btn-bulk" id="btn-export-all">Export All Chats</button>
+                <button class="btn-bulk" id="btn-import-chats">Import Chats</button>
+            </div>
+            <input type="file" id="import-file-input" accept=".zip,.md" style="display:none;">
+        </div>
+
+    </div>
+
+    <div id="toast">Settings Saved!</div>
+
+    <script src="popup.js"></script>
+</body>
+</html>
